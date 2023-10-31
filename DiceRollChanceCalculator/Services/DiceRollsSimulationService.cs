@@ -64,7 +64,7 @@ namespace DiceRollChanceCalculator.Services
             for (int i = 0; i < 1000; i++)
             {
                 dammageRollsResult.Add(calculation.RuleSystem.
-                    SimulateAttackRollDamage(armourClass,calculation.AttackDamages,calculation.AttackModifier, _randomGenerator);
+                    SimulateAttackRollDamage(armourClass,calculation.AttackDamages,calculation.AttackModifier, _randomGenerator));
             }
 
             hitResult.AverageDamagePerRound = dammageRollsResult.Average();
