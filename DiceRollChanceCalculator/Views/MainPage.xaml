@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DiceRollChanceCalculator.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DiceRollChanceCalculator.ViewModels"
+    x:DataType="viewmodel:MainViewModel">
+
+
+    <Grid
+        Padding="10"
+        RowDefinitions="Auto,Auto,Auto"
+        RowSpacing="10">
+
+
+        <Button
+            x:Name="NewCalculationBtn"
+            Grid.Row="2"
+            Command="{Binding OpenCreateCalcutionPageCommand}"
+            HorizontalOptions="Center"
+            SemanticProperties.Hint="Enter the parameters of your attack to calculate"
+            Text="Calculate attack" />
+    </Grid>
+
+
+</ContentPage>
