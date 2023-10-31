@@ -1,6 +1,4 @@
-﻿using CoreImage;
-using DiceRollChanceCalculator.Constants;
-using DiceRollChanceCalculator.Models;
+﻿using DiceRollChanceCalculator.Models;
 
 namespace DiceRollChanceCalculator.Services
 {
@@ -65,85 +63,14 @@ namespace DiceRollChanceCalculator.Services
 
             for (int i = 0; i < 1000; i++)
             {
-                if (calculation.RuleSystem == RuleSystem.Pathfinder1E)
-                {
-                    dammageRollsResult.Add(GetPathfinder1EAttackRollDamage(armourClass, calculation));
-                }
-                else if (calculation.RuleSystem == RuleSystem.DnD5E)
-                {
-                    dammageRollsResult.Add(GetDnD5EAttackRollDamage(armourClass, calculation));
-                }
+                dammageRollsResult.Add(calculation.RuleSystem.
+                    SimulateAttackRollDamage(armourClass,calculation.AttackDamages,calculation.AttackModifier, _randomGenerator);
             }
 
             hitResult.AverageDamagePerRound = dammageRollsResult.Average();
             hitResult.Probability = dammageRollsResult.Count(num => num == 0) / dammageRollsResult.Count;
 
             return hitResult;
-        }
-
-        private int GetDnD5EAttackRollDamage(int armourClass, CalculationModel calculation)
-        {
-            var hitRoll = _randomGenerator.Next(1, 21) + calculation.AttackModifier;
-
-            var fullDamage = 0;
-
-            if (hitRoll >= armourClass)
-            {
-                if (hitRoll == (20 + calculation.AttackModifier))
-                {
-                    foreach (var diceDamage in calculation.AttackDamages)
-                    {
-                        for (int i = 0; i < diceDamage.CriticalMultiplayer; i++)
-                        {
-                            fullDamage = _randomGenerator.Next(1, diceDamage.DiceType.Value + 1);
-                        }
-                        fullDamage += diceDamage.AditionalDamage;
-                    }
-                }
-                else
-                {
-                    foreach (var diceDamage in calculation.AttackDamages)
-                    {
-                        fullDamage += _randomGenerator.Next(1, diceDamage.DiceType.Value + 1) + diceDamage.AditionalDamage;
-                    }
-                }
-            }
-
-            return fullDamage;
-        }
-
-        private int GetPathfinder1EAttackRollDamage(int armourClass, CalculationModel calculation)
-        {
-            var hitRoll = _randomGenerator.Next(1, 21) + calculation.AttackModifier;
-
-            var fullDamage = 0;
-
-            if (hitRoll >= armourClass)
-            {
-                var isCriticalHit = (hitRoll == (20 + calculation.AttackModifier))
-                    && ((_randomGenerator.Next(1, 21) + calculation.AttackModifier) >= armourClass);
-
-
-                if (isCriticalHit)
-                {
-                    foreach (var diceDamage in calculation.AttackDamages)
-                    {
-                        for (int i = 0; i < diceDamage.CriticalMultiplayer; i++)
-                        {
-                            fullDamage = _randomGenerator.Next(1, diceDamage.DiceType.Value + 1) + diceDamage.AditionalDamage;
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var diceDamage in calculation.AttackDamages)
-                    {
-                        fullDamage += _randomGenerator.Next(1, diceDamage.DiceType.Value + 1) + diceDamage.AditionalDamage;
-                    }
-                }
-            }
-
-            return fullDamage;
         }
     }
 }

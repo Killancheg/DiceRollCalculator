@@ -5,13 +5,6 @@ namespace DiceRollChanceCalculator.Services;
 
 public class DiceRollsCalculationService : IDiceRollsService
 {
-    private readonly Random _randomGenerator;
-
-    public DiceRollsCalculationService(Random randomGenerator)
-    {
-        _randomGenerator = randomGenerator;
-    }
-
     public async Task<CalculationModel> MakeCalulationAsync(CalculationModel calculation)
     {
         
@@ -72,26 +65,12 @@ public class DiceRollsCalculationService : IDiceRollsService
 
         foreach ( var damage in calculation.AttackDamages)
         {
-            hitResult.AverageDamagePerRound += GetCalculatedCriticalAverageDamageBonus(damage, hitResult.Probability, calculation.RuleSystem);
+            hitResult.AverageDamagePerRound += calculation.RuleSystem.CalculateCriticalAverageDamageBonus(damage, hitResult.Probability);
         }
 
         hitResult.AverageDamagePerRound += calculation.AverageDamage;
         hitResult.AverageDamagePerRound *= hitResult.Probability;
 
         return hitResult;
-    }
-
-    private double GetCalculatedCriticalAverageDamageBonus(DiceDamage damage, double probability, string ruleSystem)
-    {
-        if (ruleSystem == RuleSystem.DnD5E)
-        {
-            return (1 / 20) * damage.CriticalMultiplayer * ((damage.DiceType.Value + 1) / 2);
-        }
-        else if (ruleSystem == RuleSystem.Pathfinder1E)
-        {
-            return (1 / 20) * probability * damage.CriticalMultiplayer * ((damage.DiceType.Value + 1 + damage.AditionalDamage) / 2);
-        }
-
-        return 0;
     }
 }

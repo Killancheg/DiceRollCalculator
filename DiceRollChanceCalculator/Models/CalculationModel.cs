@@ -1,4 +1,6 @@
-﻿namespace DiceRollChanceCalculator.Models;
+﻿using DiceRollChanceCalculator.Models.RuleSystems;
+
+namespace DiceRollChanceCalculator.Models;
 
 public class CalculationModel
 {
@@ -8,7 +10,7 @@ public class CalculationModel
 
     public List<DiceDamage> AttackDamages { get; set; } = new List<DiceDamage>();
 
-    public string RuleSystem { get; set; }
+    public IRuleSystem RuleSystem { get; set; }
 
     public bool Simulated { get; set; }
 
