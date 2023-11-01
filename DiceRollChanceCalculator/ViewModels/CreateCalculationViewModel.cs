@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DiceRollChanceCalculator.Constants;
 using DiceRollChanceCalculator.Models;
+using DiceRollChanceCalculator.Models.RuleSystems;
 using System.Collections.ObjectModel;
 
 namespace DiceRollChanceCalculator.ViewModels;
@@ -20,11 +21,28 @@ public partial class CreateCalculationViewModel : ObservableObject
     [ObservableProperty]
     public bool _isCollectionViewTitlesVissible;
 
+    [ObservableProperty]
+    public bool _isSimulatedChecked;
+
     public CreateCalculationViewModel()
     {
         _calculationModel = new CalculationModel();
         _attackDamages = new ObservableCollection<DiceDamage>();
         _dicePickerOptions = DiceType.GetDiceTypeDictionary().ToList();
+    }
+
+    [RelayCommand]
+    public async Task ChangeRuleSystemAsync(string selectedRuleSystem)
+    {
+        if (selectedRuleSystem == RuleSystem.Pathfinder1E)
+        {
+            CalculationModel.RuleSystem = new Pathfinder1ERuleSystem();
+        }
+
+        if (selectedRuleSystem == RuleSystem.DnD5E)
+        {
+            CalculationModel.RuleSystem = new DnD5ERuleSystem();
+        }
     }
 
     [RelayCommand]

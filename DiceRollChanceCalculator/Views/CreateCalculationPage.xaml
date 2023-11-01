@@ -13,7 +13,7 @@
     <Grid
         Padding="10"
         ColumnSpacing="10"
-        RowDefinitions="Auto, Auto, Auto, Auto,Auto, Auto"
+        RowDefinitions="Auto, Auto, Auto, Auto,Auto, Auto, Auto"
         RowSpacing="10">
 
         <Grid
@@ -50,14 +50,20 @@
         </Grid>
 
 
-        <StackLayout
-            Grid.Row="1"
-            RadioButtonGroup.GroupName="RuleSystem"
-            RadioButtonGroup.SelectedValue="{Binding CalculationModel.RuleSystem}">
+        <StackLayout Grid.Row="1" RadioButtonGroup.GroupName="RuleSystem">
 
             <Label Text="Choose rule system:" />
-            <RadioButton Content="{x:Static constants:RuleSystem.DnD5E}" Value="{x:Static constants:RuleSystem.DnD5E}" />
-            <RadioButton Content="{x:Static constants:RuleSystem.Pathfinder1E}" Value="{x:Static constants:RuleSystem.Pathfinder1E}" />
+            <RadioButton Content="{x:Static constants:RuleSystem.DnD5E}" Value="{x:Static constants:RuleSystem.DnD5E}">
+                <RadioButton.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeRuleSystemCommand}" CommandParameter="{x:Static constants:RuleSystem.DnD5E}" />
+                </RadioButton.GestureRecognizers>
+            </RadioButton>
+
+            <RadioButton Content="{x:Static constants:RuleSystem.Pathfinder1E}" Value="{x:Static constants:RuleSystem.Pathfinder1E}">
+                <RadioButton.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeRuleSystemCommand}" CommandParameter="{x:Static constants:RuleSystem.Pathfinder1E}" />
+                </RadioButton.GestureRecognizers>
+            </RadioButton>
 
         </StackLayout>
 
@@ -124,8 +130,18 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button
+        <Grid
             Grid.Row="5"
+            ColumnDefinitions="auto,auto"
+            ColumnSpacing="10">
+
+            <Label Grid.Column="0" Text="Simulated?:" />
+            <CheckBox Grid.Column="1" IsChecked="{Binding IsSimulatedChecked}" />
+
+        </Grid>
+
+        <Button
+            Grid.Row="6"
             Margin="0,40,0,0"
             Command="{Binding CalculateCommand}"
             FontSize="Subtitle"
