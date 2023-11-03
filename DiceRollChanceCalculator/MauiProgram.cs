@@ -1,4 +1,4 @@
-﻿using DiceRollChanceCalculator.Models;
+﻿using DiceRollChanceCalculator.Services;
 using DiceRollChanceCalculator.ViewModels;
 using DiceRollChanceCalculator.Views;
 using Microsoft.Extensions.Logging;
@@ -18,6 +18,8 @@ namespace DiceRollChanceCalculator
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+
+            //Pages
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
@@ -26,6 +28,13 @@ namespace DiceRollChanceCalculator
 
             builder.Services.AddScoped<CalculationViewModel>();
             builder.Services.AddScoped<CalculationPage>();
+
+            //Services
+
+            builder.Services.AddSingleton<CalculationStoringService>();
+            builder.Services.AddTransient<DiceRollsCalculationService>();
+            builder.Services.AddTransient<DiceRollsSimulationService>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

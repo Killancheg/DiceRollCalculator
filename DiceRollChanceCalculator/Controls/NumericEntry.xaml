@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="DiceRollChanceCalculator.Controls.NumericEntry"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+
+        <Entry
+            x:Name="numericEntry"
+            Grid.Row="0"
+            Grid.Column="0"
+            Keyboard="Numeric" />
+
+        <StackLayout
+            Grid.Row="0"
+            Grid.Column="1"
+            Orientation="Vertical"
+            VerticalOptions="CenterAndExpand">
+            <Label Text="+">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="IncreaseValue" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="-">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DecreaseValue" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </Grid>
+</ContentView>

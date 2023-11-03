@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DiceRollChanceCalculator.Constants;
+using DiceRollChanceCalculator.Converters;
 using DiceRollChanceCalculator.Models;
 using DiceRollChanceCalculator.Models.RuleSystems;
 using System.Collections.ObjectModel;
@@ -34,15 +35,7 @@ public partial class CreateCalculationViewModel : ObservableObject
     [RelayCommand]
     public async Task ChangeRuleSystemAsync(string selectedRuleSystem)
     {
-        if (selectedRuleSystem == RuleSystem.Pathfinder1E)
-        {
-            CalculationModel.RuleSystem = new Pathfinder1ERuleSystem();
-        }
-
-        if (selectedRuleSystem == RuleSystem.DnD5E)
-        {
-            CalculationModel.RuleSystem = new DnD5ERuleSystem();
-        }
+       CalculationModel.RuleSystem = RuleSystemConverter.ConvertRuleSystem(selectedRuleSystem);
     }
 
     [RelayCommand]
