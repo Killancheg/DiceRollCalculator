@@ -7,28 +7,22 @@ namespace DiceRollChanceCalculator.Converters
     {
         public static string ConvertRuleSystem(IRuleSystem ruleSystem)
         {
-            switch (ruleSystem)
+            return ruleSystem switch
             {
-                case DnD5ERuleSystem:
-                    return RuleSystem.DnD5E;
-                case Pathfinder1ERuleSystem:
-                    return RuleSystem.Pathfinder1E;
-                default:
-                    return RuleSystem.NotImplemented;
-            }
+                DnD5ERuleSystem => RuleSystem.DnD5E,
+                Pathfinder1ERuleSystem => RuleSystem.Pathfinder1E,
+                _ => RuleSystem.NotImplemented
+            };
         }
 
         public static IRuleSystem ConvertRuleSystem(string ruleSystem)
         {
-            switch (ruleSystem)
+            return ruleSystem switch
             {
-                case RuleSystem.DnD5E:
-                    return new DnD5ERuleSystem();
-                case RuleSystem.Pathfinder1E:
-                    return new Pathfinder1ERuleSystem();
-                default:
-                    return null;
-            }
+                RuleSystem.DnD5E => new DnD5ERuleSystem(),
+                RuleSystem.Pathfinder1E => new Pathfinder1ERuleSystem(),
+                _ => null
+            };
         }
     }
 }

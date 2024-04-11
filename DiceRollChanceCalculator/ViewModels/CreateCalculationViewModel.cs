@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using DiceRollChanceCalculator.Constants;
 using DiceRollChanceCalculator.Converters;
 using DiceRollChanceCalculator.Models;
-using DiceRollChanceCalculator.Models.RuleSystems;
 using System.Collections.ObjectModel;
 
 namespace DiceRollChanceCalculator.ViewModels;

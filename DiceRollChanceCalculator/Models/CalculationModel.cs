@@ -14,6 +14,8 @@ public class CalculationModel
 
     public bool Simulated { get; set; }
 
+    public DateTime CreationDate { get; set; }
+
     public List<ExpectedHitResult> HitResults { get; set; } = new List<ExpectedHitResult>();
 
     public double AverageDamage { get; set; }

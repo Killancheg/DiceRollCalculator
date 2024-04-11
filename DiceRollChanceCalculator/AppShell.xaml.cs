@@ -9,6 +9,7 @@ namespace DiceRollChanceCalculator
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(CreateCalculationPage), typeof(CreateCalculationPage));
+            Routing.RegisterRoute(nameof(CalculationPage), typeof(CalculationPage));
         }
     }
 }

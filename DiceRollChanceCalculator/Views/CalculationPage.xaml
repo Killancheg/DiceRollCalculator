@@ -3,14 +3,73 @@
     x:Class="DiceRollChanceCalculator.Views.CalculationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:DiceRollChanceCalculator.Models"
     xmlns:viewmodel="clr-namespace:DiceRollChanceCalculator.ViewModels"
     Title="CalculationPage"
     x:DataType="viewmodel:CalculationViewModel">
 
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                FontSize="24"
+                HorizontalOptions="CenterAndExpand"
+                Text="{Binding CalculationModel.Name}" />
+            <Label Text="{Binding CalculationModel.AttackModifier, StringFormat='Attack Modifier: {0}'}" />
+
+            <Label FontAttributes="Bold" Text="Attack Damages:" />
+            <ListView ItemsSource="{Binding AttackDamages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding DiceType.Value, StringFormat='Dice Value: {0}'}" />
+                                <Label Text="{Binding AditionalDamage, StringFormat='Additional Damage: {0}'}" />
+                                <Label Text="{Binding CriticalMultiplayer, StringFormat='Critical Multiplier: {0}'}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="{Binding RuleSystem}" />
+            <Label FontAttributes="Bold" Text="Hit Results:" />
+            <ListView ItemsSource="{Binding HitResults}">
+                <ListView.Header>
+                    <Grid
+                        ColumnDefinitions="*,*,*"
+                        ColumnSpacing="10"
+                        RowSpacing="10">
+
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            Text="AC" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            Text="Chance to hit" />
+                        <Label
+                            Grid.Column="2"
+                            FontAttributes="Bold"
+                            Text="Average dmg/round" />
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:ExpectedHitResult}">
+                        <ViewCell>
+                            <Grid
+                                ColumnDefinitions="*,*,*"
+                                ColumnSpacing="10"
+                                RowSpacing="10">
+                                <Label Grid.Column="0" Text="{Binding ArmourClass, StringFormat='Armour Class: {0}'}" />
+                                <Label Grid.Column="1" Text="{Binding Probability, StringFormat='Probability: {0:F2}'}" />
+                                <Label Grid.Column="2" Text="{Binding AverageDamagePerRound, StringFormat='Average Damage Per Round: {0:F2}'}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="{Binding CalculationModel.AverageDamage, StringFormat='Average Damage: {0:F2}'}" />
+        </StackLayout>
+    </ContentPage.Content>
+
 </ContentPage>
