@@ -28,6 +28,7 @@ namespace DiceRollChanceCalculator
             builder.Services.AddSingleton<CalculationStoringService>();
             builder.Services.AddTransient<DiceRollsCalculationService>();
             builder.Services.AddTransient<DiceRollsSimulationService>();
+            builder.Services.AddScoped<IDiceRollsServiceProvider, DiceRollsServiceProvider>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

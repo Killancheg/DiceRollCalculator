@@ -3,12 +3,16 @@ using CommunityToolkit.Mvvm.Input;
 using DiceRollChanceCalculator.Constants;
 using DiceRollChanceCalculator.Converters;
 using DiceRollChanceCalculator.Models;
+using DiceRollChanceCalculator.Services;
 using System.Collections.ObjectModel;
 
 namespace DiceRollChanceCalculator.ViewModels;
 
 public partial class CreateCalculationViewModel : ObservableObject
 {
+    private readonly IDiceRollsServiceProvider  _diceRollsServiceProvider;
+    private readonly CalculationStoringService _calculationStoringService;
+
     [ObservableProperty]
     private CalculationModel _calculationModel;
 
@@ -24,8 +28,11 @@ public partial class CreateCalculationViewModel : ObservableObject
     [ObservableProperty]
     public bool _isSimulatedChecked;
 
-    public CreateCalculationViewModel()
+    public CreateCalculationViewModel(IDiceRollsServiceProvider diceRollsServiceProvider, CalculationStoringService calculationStoringService)
     {
+        _diceRollsServiceProvider = diceRollsServiceProvider;
+        _calculationStoringService = calculationStoringService;
+
         _calculationModel = new CalculationModel();
         _attackDamages = new ObservableCollection<DiceDamage>();
         _dicePickerOptions = DiceType.GetDiceTypeDictionary().ToList();
@@ -65,6 +72,12 @@ public partial class CreateCalculationViewModel : ObservableObject
     public async Task CalculateAsync()
     {
         CalculationModel.AttackDamages = AttackDamages.ToList();
-    }
 
+        IDiceRollsService diceRollsService = _diceRollsServiceProvider.GetService(CalculationModel.Simulated);
+        CalculationModel = await diceRollsService.MakeCalulationAsync(CalculationModel);
+
+        await _calculationStoringService.SaveCalcutaionAsync(CalculationModel);
+
+        await GoBackAsync();
+    }
 }
