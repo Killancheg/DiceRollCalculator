@@ -38,7 +38,7 @@
                             <SwipeItems>
                                 <SwipeItem
                                     BackgroundColor="LightPink"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=DeleteCalculationCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCalculationCommand}"
                                     CommandParameter="{Binding .}"
                                     Text="Delete" />
                             </SwipeItems>
@@ -50,7 +50,7 @@
                             </StackLayout>
                         </SwipeView.Content>
                         <SwipeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=OpenCalculationPageCommand}" CommandParameter="{Binding .}" />
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=OpenCalculationPageCommand}" CommandParameter="{Binding .}" />
                         </SwipeView.GestureRecognizers>
                     </SwipeView>
                 </DataTemplate>

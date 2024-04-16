@@ -17,6 +17,13 @@ namespace DiceRollChanceCalculator
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             }).UseMauiCommunityToolkit();
 
+            //Services
+            builder.Services.AddSingleton<Random>();
+            builder.Services.AddSingleton<CalculationStoringService>();
+            builder.Services.AddTransient<DiceRollsCalculationService>();
+            builder.Services.AddTransient<DiceRollsSimulationService>();
+            builder.Services.AddScoped<IDiceRollsServiceProvider, DiceRollsServiceProvider>();
+
             //Pages
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
@@ -24,11 +31,6 @@ namespace DiceRollChanceCalculator
             builder.Services.AddTransient<CreateCalculationPage>();
             builder.Services.AddScoped<CalculationViewModel>();
             builder.Services.AddScoped<CalculationPage>();
-            //Services
-            builder.Services.AddSingleton<CalculationStoringService>();
-            builder.Services.AddTransient<DiceRollsCalculationService>();
-            builder.Services.AddTransient<DiceRollsSimulationService>();
-            builder.Services.AddScoped<IDiceRollsServiceProvider, DiceRollsServiceProvider>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

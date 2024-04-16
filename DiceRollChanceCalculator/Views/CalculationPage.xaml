@@ -19,7 +19,7 @@
             <Label FontAttributes="Bold" Text="Attack Damages:" />
             <ListView ItemsSource="{Binding AttackDamages}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="{x:Type models:DiceDamage}">
                         <ViewCell>
                             <StackLayout>
                                 <Label Text="{Binding DiceType.Value, StringFormat='Dice Value: {0}'}" />

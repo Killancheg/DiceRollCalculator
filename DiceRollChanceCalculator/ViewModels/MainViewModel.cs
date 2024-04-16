@@ -4,6 +4,7 @@ using DiceRollChanceCalculator.Models;
 using DiceRollChanceCalculator.Services;
 using DiceRollChanceCalculator.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace DiceRollChanceCalculator.ViewModels;
