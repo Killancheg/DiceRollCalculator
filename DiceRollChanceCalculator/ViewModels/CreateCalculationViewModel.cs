@@ -75,6 +75,7 @@ public partial class CreateCalculationViewModel : ObservableObject
 
         IDiceRollsService diceRollsService = _diceRollsServiceProvider.GetService(CalculationModel.Simulated);
         CalculationModel = await diceRollsService.MakeCalulationAsync(CalculationModel);
+        CalculationModel.CreationDate = DateTime.Now;
 
         await _calculationStoringService.SaveCalcutaionAsync(CalculationModel);
 

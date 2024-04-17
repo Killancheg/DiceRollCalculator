@@ -33,6 +33,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="StartAndExpand"
+                MinimumWidthRequest="100"
                 Text="{Binding CalculationModel.Name}" />
 
             <Label
@@ -46,7 +47,7 @@
                 Grid.Column="1"
                 HorizontalOptions="Start"
                 WidthRequest="80"
-                Value="{Binding CalculationModel.AttackModifier}" />
+                Value="{Binding CalculationModel.AttackModifier, Mode=TwoWay}" />
         </Grid>
 
 
@@ -75,16 +76,25 @@
 
         <Grid
             Grid.Row="3"
-            ColumnDefinitions="100,150,150"
+            Margin="20,0,0,0"
+            ColumnDefinitions="100,150,150,Auto"
             ColumnSpacing="5"
             IsVisible="{Binding IsCollectionViewTitlesVissible}"
             RowDefinitions="Auto"
             RowSpacing="5">
 
-            <Label Grid.Column="0" Text="Dice" />
-            <Label Grid.Column="1" Text="Damage Modifier" />
-            <Label Grid.Column="2" Text="Crit Multiplayer" />
-
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Dice" />
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                Text="Damage Modifier" />
+            <Label
+                Grid.Column="2"
+                FontAttributes="Bold"
+                Text="Crit Multiplayer" />
         </Grid>
 
 
@@ -93,7 +103,6 @@
                 <GridItemsLayout
                     HorizontalItemSpacing="10"
                     Orientation="Vertical"
-                    Span="4"
                     VerticalItemSpacing="10" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
@@ -126,6 +135,7 @@
                             Grid.Column="3"
                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CreateCalculationViewModel}}, Path=DeleteDiceDamageCommand}"
                             CommandParameter="{Binding .}"
+                            HorizontalOptions="EndAndExpand"
                             Text="Delete" />
 
                     </Grid>
@@ -142,7 +152,7 @@
                 Grid.Column="0"
                 Text="Simulated?:"
                 VerticalOptions="Center" />
-            <CheckBox Grid.Column="1" IsChecked="{Binding IsSimulatedChecked}" />
+            <CheckBox Grid.Column="1" IsChecked="{Binding CalculationModel.Simulated}" />
 
         </Grid>
 

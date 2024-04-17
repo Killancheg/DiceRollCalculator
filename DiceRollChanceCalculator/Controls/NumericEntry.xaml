@@ -10,7 +10,8 @@
             x:Name="numericEntry"
             Grid.Row="0"
             Grid.Column="0"
-            Keyboard="Numeric" />
+            Keyboard="Numeric"
+            TextChanged="NumericEntryTextChanged" />
 
         <StackLayout
             Grid.Row="0"

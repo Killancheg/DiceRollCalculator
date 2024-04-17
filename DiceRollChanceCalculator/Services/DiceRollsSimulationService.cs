@@ -31,6 +31,7 @@ namespace DiceRollChanceCalculator.Services
             while (currentAc > (2 + calculation.AttackModifier))
             {
                 hitResults.Add(GetSimulatedHitResult(currentAc, calculation));
+                currentAc--;
             }
 
             if (hitResults.Count > 0)
@@ -68,7 +69,7 @@ namespace DiceRollChanceCalculator.Services
             }
 
             hitResult.AverageDamagePerRound = dammageRollsResult.Average();
-            hitResult.Probability = dammageRollsResult.Count(num => num == 0) / dammageRollsResult.Count;
+            hitResult.Probability = (double)(1 - (double)dammageRollsResult.Count(num => num == 0) / (double)dammageRollsResult.Count);
 
             return hitResult;
         }

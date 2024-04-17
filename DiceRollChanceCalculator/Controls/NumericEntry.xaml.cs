@@ -33,4 +33,12 @@ public partial class NumericEntry : ContentView
             numericEntry.Text = Value.ToString();
         }
     }
+
+    private void NumericEntryTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (decimal.TryParse(e.NewTextValue, out decimal newValue))
+        {
+            Value = newValue;
+        }
+    }
 }

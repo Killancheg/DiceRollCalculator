@@ -9,14 +9,14 @@
 
         public int SimulateAttackRollDamage(int armourClass, List<DiceDamage> damages, int attackModifier, Random randomGenerator)
         {
-            var hitRoll = randomGenerator.Next(1, 21) + attackModifier;
+            var hitRoll = randomGenerator.Next(1, 20);
 
             var fullDamage = 0;
 
-            if (hitRoll >= armourClass)
+            if ((hitRoll + attackModifier) >= armourClass && hitRoll != 1)
             {
-                var isCriticalHit = (hitRoll == (20 + attackModifier))
-                    && ((randomGenerator.Next(1, 21) + attackModifier) >= armourClass);
+                var isCriticalHit = (hitRoll == 20
+                    && (randomGenerator.Next(1, 20) + attackModifier >= armourClass));
 
 
                 if (isCriticalHit)
@@ -25,7 +25,7 @@
                     {
                         for (int i = 0; i < diceDamage.CriticalMultiplayer; i++)
                         {
-                            fullDamage = randomGenerator.Next(1, diceDamage.DiceType.Value + 1) + diceDamage.AditionalDamage;
+                            fullDamage += randomGenerator.Next(1, diceDamage.DiceType.Value) + diceDamage.AditionalDamage;
                         }
                     }
                 }
@@ -33,7 +33,7 @@
                 {
                     foreach (var diceDamage in damages)
                     {
-                        fullDamage += randomGenerator.Next(1, diceDamage.DiceType.Value + 1) + diceDamage.AditionalDamage;
+                        fullDamage += randomGenerator.Next(1, diceDamage.DiceType.Value) + diceDamage.AditionalDamage;
                     }
                 }
             }
