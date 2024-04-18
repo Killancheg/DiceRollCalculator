@@ -1,13 +1,18 @@
 ﻿using DiceRollChanceCalculator.Constants;
+using DiceRollChanceCalculator.Converters;
 using DiceRollChanceCalculator.Models;
+using DiceRollChanceCalculator.Models.RuleSystems;
 
 namespace DiceRollChanceCalculator.Services;
 
 public class DiceRollsCalculationService : IDiceRollsService
 {
+    private IRuleSystem RpgRuleSystem { get; set; }
+
     public async Task<CalculationModel> MakeCalulationAsync(CalculationModel calculation)
     {
-        
+        RpgRuleSystem = RuleSystemConverter.ConvertRuleSystem(calculation.RuleSystem);
+
         calculation.AverageDamage = GetCalculatedFullAveregeDamage(calculation);
         calculation.HitResults = GetCalculatedHitResults(calculation);
 
@@ -39,6 +44,7 @@ public class DiceRollsCalculationService : IDiceRollsService
         while (currentAc > (2 + calculation.AttackModifier))
         {
             hitResults.Add(GetCalculatedHitResult(currentAc, calculation));
+            currentAc--;
         }
 
         hitResults.Reverse();
@@ -59,13 +65,13 @@ public class DiceRollsCalculationService : IDiceRollsService
             ArmourClass = armourClass
         };
 
-        hitResult.Probability = (21 - (armourClass - calculation.AttackModifier)) / 20;
+        hitResult.Probability = ((21 - (armourClass - calculation.AttackModifier)) / 20) * 100;
 
         hitResult.AverageDamagePerRound = 0;
 
         foreach ( var damage in calculation.AttackDamages)
         {
-            hitResult.AverageDamagePerRound += calculation.RuleSystem.CalculateCriticalAverageDamageBonus(damage, hitResult.Probability);
+            hitResult.AverageDamagePerRound += RpgRuleSystem.CalculateCriticalAverageDamageBonus(damage, hitResult.Probability);
         }
 
         hitResult.AverageDamagePerRound += calculation.AverageDamage;

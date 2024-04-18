@@ -41,7 +41,8 @@ public partial class CreateCalculationViewModel : ObservableObject
     [RelayCommand]
     public async Task ChangeRuleSystemAsync(string selectedRuleSystem)
     {
-       CalculationModel.RuleSystem = RuleSystemConverter.ConvertRuleSystem(selectedRuleSystem);
+        //CalculationModel.RuleSystem = RuleSystemConverter.ConvertRuleSystem(selectedRuleSystem);
+        CalculationModel.RuleSystem = selectedRuleSystem;
     }
 
     [RelayCommand]

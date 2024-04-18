@@ -10,7 +10,7 @@ public class CalculationModel
 
     public List<DiceDamage> AttackDamages { get; set; } = new List<DiceDamage>();
 
-    public IRuleSystem RuleSystem { get; set; }
+    public string RuleSystem { get; set; }
 
     public bool Simulated { get; set; }
 

@@ -1,10 +1,14 @@
-﻿using DiceRollChanceCalculator.Models;
+﻿using DiceRollChanceCalculator.Converters;
+using DiceRollChanceCalculator.Models;
+using DiceRollChanceCalculator.Models.RuleSystems;
 
 namespace DiceRollChanceCalculator.Services
 {
     public class DiceRollsSimulationService : IDiceRollsService
     {
         private readonly Random _randomGenerator;
+
+        private IRuleSystem RpgRuleSystem { get; set; }
 
         public DiceRollsSimulationService(Random randomGenerator)
         {
@@ -13,6 +17,7 @@ namespace DiceRollChanceCalculator.Services
 
         public async Task<CalculationModel> MakeCalulationAsync(CalculationModel calculation)
         {
+            RpgRuleSystem = RuleSystemConverter.ConvertRuleSystem(calculation.RuleSystem);
             calculation.HitResults = GetSimulatedDiceRollResults(calculation);
            
             return calculation;
@@ -64,12 +69,12 @@ namespace DiceRollChanceCalculator.Services
 
             for (int i = 0; i < 1000; i++)
             {
-                dammageRollsResult.Add(calculation.RuleSystem.
+                dammageRollsResult.Add(RpgRuleSystem.
                     SimulateAttackRollDamage(armourClass,calculation.AttackDamages,calculation.AttackModifier, _randomGenerator));
             }
 
             hitResult.AverageDamagePerRound = dammageRollsResult.Average();
-            hitResult.Probability = (double)(1 - (double)dammageRollsResult.Count(num => num == 0) / (double)dammageRollsResult.Count);
+            hitResult.Probability = (double)(1 - (double)dammageRollsResult.Count(num => num == 0) / (double)dammageRollsResult.Count) * 100;
 
             return hitResult;
         }

@@ -11,7 +11,8 @@ public class CalculationStoringService
 
     public CalculationStoringService()
     {
-        jsonFilesDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Calculations");
+        //jsonFilesDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Calculations");
+        jsonFilesDirectory = "D:\\Code\\DiceCalculations";
         Directory.CreateDirectory(jsonFilesDirectory);
     }
 

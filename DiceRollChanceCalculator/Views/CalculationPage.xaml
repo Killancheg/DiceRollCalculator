@@ -60,9 +60,9 @@
                                 ColumnDefinitions="*,*,*"
                                 ColumnSpacing="10"
                                 RowSpacing="10">
-                                <Label Grid.Column="0" Text="{Binding ArmourClass, StringFormat='Armour Class: {0}'}" />
-                                <Label Grid.Column="1" Text="{Binding Probability, StringFormat='Probability: {0:F2}'}" />
-                                <Label Grid.Column="2" Text="{Binding AverageDamagePerRound, StringFormat='Average Damage Per Round: {0:F2}'}" />
+                                <Label Grid.Column="0" Text="{Binding ArmourClass, StringFormat='{0}'}" />
+                                <Label Grid.Column="1" Text="{Binding Probability, StringFormat='{0:F2}%'}" />
+                                <Label Grid.Column="2" Text="{Binding AverageDamagePerRound, StringFormat='{0:F2}'}" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

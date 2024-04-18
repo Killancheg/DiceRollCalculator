@@ -38,7 +38,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task OpenCalculationPageAsync(CalculationModel calculation)
     {
-        await Shell.Current.GoToAsync($"{nameof(CalculationPage)}?model={Uri.EscapeDataString(JsonSerializer.Serialize(calculation))}");
+        await Shell.Current.GoToAsync($"{nameof(CalculationPage)}?calculation={Uri.EscapeDataString(JsonSerializer.Serialize(calculation))}");
     }
 
     [RelayCommand]

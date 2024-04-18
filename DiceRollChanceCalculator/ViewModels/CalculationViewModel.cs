@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace DiceRollChanceCalculator.ViewModels;
 
-[QueryProperty("CalculationModelParameter", "model")]
+[QueryProperty("CalculationModelParameter", "calculation")]
 public partial class CalculationViewModel : ObservableObject
 {
     [ObservableProperty]
@@ -21,14 +21,14 @@ public partial class CalculationViewModel : ObservableObject
     [ObservableProperty]
     public string _ruleSystem;
 
-    private string CalculationModelParameter
+    public string CalculationModelParameter
     {
         set
         {
             CalculationModel = JsonSerializer.Deserialize<CalculationModel>(Uri.UnescapeDataString(value));
             AttackDamages = new ObservableCollection<DiceDamage>(CalculationModel.AttackDamages);
             HitResults = new ObservableCollection<ExpectedHitResult>(CalculationModel.HitResults);
-            RuleSystem = RuleSystemConverter.ConvertRuleSystem(CalculationModel.RuleSystem);
+            RuleSystem = CalculationModel.RuleSystem;
         }
     }
 }
